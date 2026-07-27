@@ -5,7 +5,7 @@ from books import BOOKS
 from keyboards import main_keyboard
 
 
-ADMIN_USERNAME = "@username_admin"  # номи админро инҷо мон
+ADMIN_USERNAME = "@kitobi_dustdoshta"  # номи админро инҷо мон
 
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
