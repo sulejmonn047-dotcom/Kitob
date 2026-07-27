@@ -14,19 +14,19 @@ async def message_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = update.message.text
 
     if text == "📚 Китобҳо":
-    book_list = "📚 Рӯйхати китобҳо:\n\n"
+        book_list = "📚 Рӯйхати китобҳо:\n\n"
 
-    for book in BOOKS:
-        book_list += f"{book['id']}. {book['name']}\n"
+        for book in BOOKS:
+            book_list += f"{book['id']}. {book['name']}\n"
 
-    await update.message.reply_text(book_list)
+        await update.message.reply_text(book_list)
 
     elif text == "💰 Нархнома":
         await update.message.reply_text(
             "1 китоб — 10 сомонӣ\n"
             "2 китоб — 15 сомонӣ\n"
             "6 китоби Саидмурод Давлатов — 45 сомонӣ\n"
-            "Ҳамаи 24 китоб —? сомонӣ"
+            "Ҳамаи 24 китоб — 180 сомонӣ"
         )
 
     elif text == "💳 Пардохт":
