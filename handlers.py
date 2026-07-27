@@ -1,5 +1,4 @@
 # handlers.py
-
 from books import BOOKS
 from telegram import Update
 from telegram.ext import ContextTypes
@@ -32,7 +31,22 @@ async def message_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "✍️ Барои тамос бо админ нависед:\n@kitobi_dustdoshta"
         )
 
+    elif text == "💰 Нархнома":
+        await update.message.reply_text(
+            "💰 Нархнома:\n\n"
+            "📖 1 китоб — 10 сомонӣ\n"
+            "📚 2 китоб — 15 сомонӣ\n"
+            "📚 6 китоби Саймурод Давлатов — 45 сомонӣ\n"
+            "📚 Ҳамаи китобҳо — 180 сомонӣ"
+        )
+
+    elif text == "💳 Пардохт":
+        await update.message.reply_text(
+            "💳 Барои пардохт ба админ нависед:\n@kitobi_dustdoshta"
+        )
+
     else:
         await update.message.reply_text(
-            "Лутфан аз меню интихоб кунед 📋"
+            "Лутфан аз меню интихоб кунед 📋",
+            reply_markup=main_keyboard
         )
