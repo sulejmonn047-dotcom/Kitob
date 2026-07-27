@@ -29,7 +29,7 @@ async def message_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     elif text == "📞 Тамос бо админ":
         await update.message.reply_text(
-            "✍️ Барои тамос бо админ нависед:\n@username_admin"
+            "✍️ Барои тамос бо админ нависед:\n@kitobi_dustdoshta"
         )
 
     else:
