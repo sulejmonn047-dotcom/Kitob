@@ -1,8 +1,12 @@
 # handlers.py
-from books import BOOKS
 from telegram import Update
 from telegram.ext import ContextTypes
+from books import BOOKS
 from keyboards import main_keyboard
+
+
+ADMIN_USERNAME = "@username_admin"  # номи админро инҷо мон
+
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
@@ -10,32 +14,26 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         reply_markup=main_keyboard
     )
 
+
 async def message_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = update.message.text
 
-    if text == "📚 Китобҳо":
-        book_list = "📚 Рӯйхати китобҳо:\n\n"
+    if text == "📞 Тамос бо админ":
+        await update.message.reply_text(
+            f"📩 Барои тамос бо админ:\n\n{ADMIN_USERNAME}\n\n"
+            "Савол ё дархости худро нависед."
+        )
+
+    elif text == "📚 Китобҳо":
+        text_books = "📚 Рӯйхати китобҳо:\n\n"
 
         for book in BOOKS:
-            book_list += f"{book['id']}. {book['name']}\n"
+            text_books += f"📖 {book['id']}. {book['name']} - {book['price']} сомонӣ\n"
 
-        await update.message.reply_text(book_list)
+        await update.message.reply_text(text_books)
 
-    elif text == "💰 Нархнома":
+    else:
         await update.message.reply_text(
-            "1 китоб — 10 сомонӣ\n"
-            "2 китоб — 15 сомонӣ\n"
-            "6 китоби Саидмурод Давлатов — 45 сомонӣ\n"
-            "Ҳамаи 24 китоб — 180 сомонӣ"
-        )
-
-    elif text == "💳 Пардохт":
-        await update.message.reply_text(
-            "Корти пардохт:\n"
-            "5058 2701 1508 5556"
-        )
-
-    elif text == "📞 Тамос":
-        await update.message.reply_text(
-            "Барои тамос ба админ нависед."
+            "Лутфан аз меню интихоб кунед 👇",
+            reply_markup=main_keyboard
         )
