@@ -35,7 +35,8 @@ def main():
     app = Application.builder().token(BOT_TOKEN).build()
 
     # Командаи /start
-    app.add_handler(CommandHandler("start", start))
+    application.add_handler(CommandHandler("start", start))
+application.add_handler(MessageHandler(filters.TEXT, message_handler))
 
     # Паёмҳои матнӣ
     app.add_handler(
