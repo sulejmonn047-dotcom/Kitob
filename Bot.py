@@ -35,15 +35,18 @@ def main():
     app = Application.builder().token(BOT_TOKEN).build()
 
     # Командаи /start
-    application.add_handler(CommandHandler("start", start))
-application.add_handler(MessageHandler(filters.TEXT, message_handler))
+    app.add_handler(CommandHandler("start", start))
 
     # Паёмҳои матнӣ
     app.add_handler(
-        MessageHandler(filters.TEXT & ~filters.COMMAND, message_handler)
+        MessageHandler(
+            filters.TEXT & ~filters.COMMAND,
+            message_handler
+        )
     )
 
     print("Бот фаъол шуд...")
+
     app.run_polling()
 
 
