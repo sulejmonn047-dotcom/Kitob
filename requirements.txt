@@ -63,3 +63,16 @@ async def message_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text(
             "Барои тамос ба админ нависед."
         )
+# keyboards.py
+
+from telegram import ReplyKeyboardMarkup, KeyboardButton
+
+main_keyboard = ReplyKeyboardMarkup(
+    [
+        [KeyboardButton("📚 Китобҳо")],
+        [KeyboardButton("💰 Нархнома")],
+        [KeyboardButton("💳 Пардохт")],
+        [KeyboardButton("📞 Тамос")]
+    ],
+    resize_keyboard=True
+)
