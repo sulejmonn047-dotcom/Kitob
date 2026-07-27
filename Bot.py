@@ -7,7 +7,17 @@ from telegram.ext import (
 
 from config import BOT_TOKEN
 from handlers import start, message_handler
+web_app = Flask(__name__)
 
+@web_app.route("/")
+def home():
+    return "Bot is running"
+
+def run_server():
+    web_app.run(host="0.0.0.0", port=10000)
+
+def keep_alive():
+    Thread(target=run_server).start()
 def main():
     app = Application.builder().token(BOT_TOKEN).build()
 
