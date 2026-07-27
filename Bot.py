@@ -5,7 +5,7 @@ from telegram.ext import (
     filters,
 )
 
-from config import BOT_TOKEN
+from Config import BOT_TOKEN
 from handlers import start, message_handler
 
 def main():
