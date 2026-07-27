@@ -1,0 +1,16 @@
+# config.py
+
+# Токени бот
+BOT_TOKEN = "8716435321:AAGokhQ-JKLOHdDQbp1DEWYlorgHwPnhI_s"
+
+# Telegram ID-и админ
+ADMIN_ID = 123456789
+
+# Рақами корти пардохт
+CARD_NUMBER = "5058 2701 1508 5556"
+
+# Нархҳо
+PRICE_ONE_BOOK = 10
+PRICE_TWO_BOOKS = 15
+PRICE_SAIDMUROD_SET = 45
+PRICE_ALL_BOOKS = 180
