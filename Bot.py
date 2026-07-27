@@ -6,7 +6,7 @@ from telegram.ext import (
 )
 
 from Config import BOT_TOKEN
-from handlers import start, message_handler
+from Handlers import start, message_handler
 
 def main():
     app = Application.builder().token(BOT_TOKEN).build()
