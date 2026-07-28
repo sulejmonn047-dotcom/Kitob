@@ -49,7 +49,7 @@ def main():
 
     # Webhook барои Render
     application.bot.set_webhook(
-        "https://kitob-2-gg6c.onrender.com/webhook"
+        "https://kitob-3.onrender.com/webhook"
     )
 
     app.run(
