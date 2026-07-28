@@ -10,22 +10,22 @@ from handlers import start, message_handler
 
 
 def main():
-    application = Application.builder().token(BOT_TOKEN).build()
+    app = Application.builder().token(BOT_TOKEN).build()
 
-    application.add_handler(
+    app.add_handler(
         CommandHandler("start", start)
     )
 
-    application.add_handler(
+    app.add_handler(
         MessageHandler(
             filters.TEXT & ~filters.COMMAND,
             message_handler
         )
     )
 
-    print("Bot ishlayapti...")
+    print("Bot started...")
 
-    application.run_polling()
+    app.run_polling()
 
 
 if __name__ == "__main__":
