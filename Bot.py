@@ -45,6 +45,11 @@ def main():
     application.initialize()
     application.start()
 
+    # Webhook мондан
+    application.bot.set_webhook(
+        "https://kitob-bot.onrender.com/webhook"
+    )
+
     app.run(
         host="0.0.0.0",
         port=10000
