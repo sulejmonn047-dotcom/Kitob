@@ -28,7 +28,10 @@ def webhook():
         application.bot
     )
 
-    application.update_queue.put_nowait(update)
+    application.create_task(
+        application.process_update(update)
+    )
+
     return "OK"
 
 
@@ -51,7 +54,9 @@ def main():
     application.bot.set_webhook(
         "https://kitob-3.onrender.com/webhook"
     )
+
     print("WEBHOOK SET")
+
     app.run(
         host="0.0.0.0",
         port=10000
