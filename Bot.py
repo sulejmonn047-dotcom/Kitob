@@ -33,7 +33,9 @@ def webhook():
 
 
 def main():
-    application.add_handler(CommandHandler("start", start))
+    application.add_handler(
+        CommandHandler("start", start)
+    )
 
     application.add_handler(
         MessageHandler(
@@ -45,9 +47,9 @@ def main():
     application.initialize()
     application.start()
 
-    # Webhook мондан
+    # Webhook барои Render
     application.bot.set_webhook(
-        "https://kitob-bot.onrender.com/webhook"
+        "https://kitob-2-gg6c.onrender.com/webhook"
     )
 
     app.run(
