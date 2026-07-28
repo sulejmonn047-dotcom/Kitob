@@ -1,6 +1,4 @@
 from flask import Flask, request
-from threading import Thread
-
 from telegram import Update
 from telegram.ext import (
     Application,
@@ -13,17 +11,17 @@ from config import BOT_TOKEN
 from handlers import start, message_handler
 
 
-web_app = Flask(__name__)
+app = Flask(__name__)
 
 application = Application.builder().token(BOT_TOKEN).build()
 
 
-@web_app.route("/")
+@app.route("/")
 def home():
     return "Bot is running"
 
 
-@web_app.route("/webhook", methods=["POST"])
+@app.route("/webhook", methods=["POST"])
 def webhook():
     update = Update.de_json(
         request.get_json(force=True),
@@ -31,21 +29,11 @@ def webhook():
     )
 
     application.update_queue.put_nowait(update)
-
     return "OK"
 
 
-def run_server():
-    web_app.run(
-        host="0.0.0.0",
-        port=10000
-    )
-
-
 def main():
-    application.add_handler(
-        CommandHandler("start", start)
-    )
+    application.add_handler(CommandHandler("start", start))
 
     application.add_handler(
         MessageHandler(
@@ -54,12 +42,12 @@ def main():
         )
     )
 
-    Thread(target=run_server).start()
+    application.initialize()
+    application.start()
 
-    application.run_webhook(
-        listen="0.0.0.0",
-        port=8080,
-        webhook_url="https://kitob-bot.onrender.com/webhook"
+    app.run(
+        host="0.0.0.0",
+        port=10000
     )
 
 
