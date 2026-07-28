@@ -1,4 +1,7 @@
 import asyncio
+import threading
+
+from flask import Flask
 
 from telegram.ext import (
     Application,
@@ -9,6 +12,21 @@ from telegram.ext import (
 
 from config import BOT_TOKEN
 from handlers import start, message_handler
+
+
+# Flask барои Render
+flask_app = Flask(__name__)
+
+@flask_app.route("/")
+def home():
+    return "Bot is running"
+
+
+def run_flask():
+    flask_app.run(
+        host="0.0.0.0",
+        port=10000
+    )
 
 
 async def main():
@@ -35,4 +53,9 @@ async def main():
 
 
 if __name__ == "__main__":
+    threading.Thread(
+        target=run_flask,
+        daemon=True
+    ).start()
+
     asyncio.run(main())
