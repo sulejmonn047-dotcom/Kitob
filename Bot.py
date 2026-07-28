@@ -1,6 +1,7 @@
-from flask import Flask
+from flask import Flask, request
 from threading import Thread
 
+from telegram import Update
 from telegram.ext import (
     Application,
     CommandHandler,
@@ -14,40 +15,52 @@ from handlers import start, message_handler
 
 web_app = Flask(__name__)
 
+application = Application.builder().token(BOT_TOKEN).build()
+
 
 @web_app.route("/")
 def home():
     return "Bot is running"
 
 
+@web_app.route("/webhook", methods=["POST"])
+def webhook():
+    update = Update.de_json(
+        request.get_json(force=True),
+        application.bot
+    )
+
+    application.update_queue.put_nowait(update)
+
+    return "OK"
+
+
 def run_server():
-    web_app.run(host="0.0.0.0", port=10000)
-
-
-def keep_alive():
-    Thread(target=run_server).start()
+    web_app.run(
+        host="0.0.0.0",
+        port=10000
+    )
 
 
 def main():
-    # Барои Render порт мекушояд
-    keep_alive()
+    application.add_handler(
+        CommandHandler("start", start)
+    )
 
-    app = Application.builder().token(BOT_TOKEN).build()
-
-    # Командаи /start
-    app.add_handler(CommandHandler("start", start))
-
-    # Паёмҳои матнӣ
-    app.add_handler(
+    application.add_handler(
         MessageHandler(
             filters.TEXT & ~filters.COMMAND,
             message_handler
         )
     )
 
-    print("Бот фаъол шуд...")
+    Thread(target=run_server).start()
 
-    app.run_polling()
+    application.run_webhook(
+        listen="0.0.0.0",
+        port=10000,
+        webhook_url="https://НОМИ-SERVICE-И-RENDER.onrender.com/webhook"
+    )
 
 
 if __name__ == "__main__":
