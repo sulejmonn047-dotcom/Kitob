@@ -1,5 +1,3 @@
-from flask import Flask, request
-from telegram import Update
 from telegram.ext import (
     Application,
     CommandHandler,
@@ -11,31 +9,9 @@ from config import BOT_TOKEN
 from handlers import start, message_handler
 
 
-app = Flask(__name__)
-
-application = Application.builder().token(BOT_TOKEN).build()
-
-
-@app.route("/")
-def home():
-    return "Bot is running"
-
-
-@app.route("/webhook", methods=["POST"])
-def webhook():
-    update = Update.de_json(
-        request.get_json(force=True),
-        application.bot
-    )
-
-    application.create_task(
-        application.process_update(update)
-    )
-
-    return "OK"
-
-
 def main():
+    application = Application.builder().token(BOT_TOKEN).build()
+
     application.add_handler(
         CommandHandler("start", start)
     )
@@ -47,20 +23,9 @@ def main():
         )
     )
 
-    application.initialize()
-    application.start()
+    print("Bot ishlayapti...")
 
-    # Webhook барои Render
-    application.bot.set_webhook(
-        "https://kitob-3.onrender.com/webhook"
-    )
-
-    print("WEBHOOK SET")
-
-    app.run(
-        host="0.0.0.0",
-        port=10000
-    )
+    application.run_polling()
 
 
 if __name__ == "__main__":
