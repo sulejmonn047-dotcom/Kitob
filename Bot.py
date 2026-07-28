@@ -58,8 +58,8 @@ def main():
 
     application.run_webhook(
         listen="0.0.0.0",
-        port=10000,
-        webhook_url="https://НОМИ-SERVICE-И-RENDER.onrender.com/webhook"
+        port=8080,
+        webhook_url="https://kitob-bot.onrender.com/webhook"
     )
 
 
