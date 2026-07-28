@@ -51,7 +51,7 @@ def main():
     application.bot.set_webhook(
         "https://kitob-3.onrender.com/webhook"
     )
-
+    print("WEBHOOK SET")
     app.run(
         host="0.0.0.0",
         port=10000
