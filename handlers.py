@@ -13,9 +13,9 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 async def message_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    text = update.message.text
+    text = update.message.text.lower()
 
-    if text == "📚 Китобҳо":
+    if text == "📚 китобҳо":
         books_text = "📖 Рӯйхати китобҳо:\n\n"
 
         for book in BOOKS:
@@ -24,15 +24,17 @@ async def message_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 f"💰 Нарх: {book['price']} сомонӣ\n\n"
             )
 
-        books_text += "📌 Барои дидани маълумоти китоб рақами онро нависед."
+        books_text += "📌 Барои маълумоти китоб рақами онро нависед (мисол: 5)"
         await update.message.reply_text(books_text)
 
-    elif text == "📞 Тамос бо админ":
+
+    elif text == "📞 тамос бо админ":
         await update.message.reply_text(
             "✍️ Барои тамос бо админ нависед:\n@kitobi_dustdoshta"
         )
 
-    elif text == "💰 Нархнома":
+
+    elif text == "💰 нархнома":
         await update.message.reply_text(
             "💰 Нархнома ва аксия:\n\n"
             "🔥 Аксия:\n"
@@ -40,10 +42,12 @@ async def message_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "📖 Китобҳои Саймурод Давлатов — 25 сомонӣ"
         )
 
-    elif text == "💳 Пардохт":
+
+    elif text == "💳 пардохт":
         await update.message.reply_text(
             "💳 Барои пардохт ба админ нависед:\n@kitobi_dustdoshta"
         )
+
 
     elif text.isdigit():
         book_id = int(text)
@@ -53,7 +57,7 @@ async def message_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 await update.message.reply_text(
                     f"📖 {book['name']}\n\n"
                     f"💰 Нарх: {book['price']} сомонӣ\n\n"
-                    f"{book['description']}"
+                    f"📝 Шарҳ:\n{book['description']}"
                 )
                 return
 
@@ -61,34 +65,53 @@ async def message_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "❌ Чунин рақами китоб ёфт нашуд."
         )
 
-    elif "саймурод" in text.lower():
+
+    elif "саймурод" in text:
         await update.message.reply_text(
-            "📚 Саймурод Давлатов муаллифи китобҳои рушди шахсӣ ва молиявӣ мебошад.\n"
+            "📚 Саймурод Давлатов муаллифи китобҳои рушди шахсӣ ва молиявӣ мебошад.\n\n"
             "📖 Китобҳои ӯ дар бот бо аксия 25 сомонӣ мебошанд."
         )
 
-    elif "бой" in text.lower():
+
+    elif "бой" in text:
         await update.message.reply_text(
-            "💡 Барои рушди молиявӣ ин китобҳоро тавсия медиҳам:\n\n"
+            "💡 Барои рушди молиявӣ тавсия:\n\n"
             "📘 Дилхоҳ шахс метавонад бой шавад\n"
             "📘 Фикр кун ва бой шав\n"
             "📘 Падари фақир ва сарватманд"
         )
 
-    elif "китоби хуб" in text.lower() or "кадом китоб" in text.lower():
+
+    elif "кадом китоб" in text or "китоби хуб" in text:
         await update.message.reply_text(
             "⭐ Тавсияҳо:\n\n"
             "🚀 Барои одатҳо:\n📗 Одатҳои атомӣ\n\n"
-            "💰 Барои пул ва молия:\n📘 Фикр кун ва бой шав\n"
+            "💰 Барои пул:\n📘 Фикр кун ва бой шав\n"
             "📘 Бойтарин одам дар Бобил\n\n"
             "🧠 Барои рушди шахсӣ:\n📙 Китобҳои Саймурод Давлатов"
         )
 
+
+    elif "китоб" in text and any(char.isdigit() for char in text):
+        number = ''.join(filter(str.isdigit, text))
+        book_id = int(number)
+
+        for book in BOOKS:
+            if book["id"] == book_id:
+                await update.message.reply_text(
+                    f"📖 {book['name']}\n\n"
+                    f"📝 {book['description']}\n\n"
+                    f"💰 Нарх: {book['price']} сомонӣ"
+                )
+                return
+
+
     else:
         await update.message.reply_text(
             "🤖 Саволи худро нависед.\n\n"
-            "Масалан:\n"
+            "Мисол:\n"
             "• Саймурод Давлатов кист?\n"
             "• Кадом китоб бихонам?\n"
-            "• Китоби 5-ро нишон деҳ"
-        ) 
+            "• Китоби 5-ро нишон деҳ",
+            reply_markup=main_keyboard
+        )
