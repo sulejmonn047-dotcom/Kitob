@@ -39,12 +39,10 @@ async def message_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "💰 Нархнома ва аксия:\n\n"
             "🔥 Аксия:\n"
             "📚 23 китоб — ҳамагӣ 70 сомонӣ\n\n"
-            "📖 Китобҳои Саймурод Давлатов — 25 сомонӣ"
+            "📖 Китобҳои Саймурод Давлатов — 25 сомонӣ\n\n"
+            "💳 Барои пардохт ба карта гузаронед:\n"
+            "5058 2701 1508 5556"
         )
-
-           await update.message.reply_text(
-    f"Барои пардохт ба карта гузаронед:\n\n{CARD_NUMBER}"
-)
 
 
     elif text.isdigit():
